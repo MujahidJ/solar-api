@@ -20,6 +20,7 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'role' => 'client',
         ]);
 
         $user->tokens()->delete();
