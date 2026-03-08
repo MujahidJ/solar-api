@@ -19,6 +19,11 @@ class Installation extends Model
         return $this->belongsTo(User::class, 'client_id');
     }
 
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class);
+    }
+
     public function technicians()
     {
         return $this->belongsToMany(
