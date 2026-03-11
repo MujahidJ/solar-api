@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\InstallationController as AdminInstallationController;
 use App\Http\Controllers\Admin\InstallationAssignmentController;
 use App\Http\Controllers\Admin\MaintenancePlanController;
+use App\Http\Controllers\Admin\ReminderGenerationController;
 
 use App\Http\Controllers\Technician\InstallationController as TechInstallationController;
 use App\Http\Controllers\Technician\ServiceVisitController;
@@ -26,6 +27,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
     Route::post('/installations', [AdminInstallationController::class, 'store']);
     Route::get('/installations/{installation}', [AdminInstallationController::class, 'show']);
 
+    Route::post('/reminders/generate-due', [ReminderGenerationController::class, 'generateDue']);
     Route::post('/installations/{installation}/assign-technician', [InstallationAssignmentController::class, 'assign']);
     Route::post('/installations/{installation}/maintenance-plans', [MaintenancePlanController::class, 'store']);
 });
