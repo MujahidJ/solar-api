@@ -14,6 +14,9 @@ use App\Http\Controllers\Technician\ServiceVisitController;
 
 use App\Http\Controllers\Client\InstallationController as ClientInstallationController;
 
+use App\Http\Controllers\Client\ReminderController as ClientReminderController;
+use App\Http\Controllers\Technician\ReminderController as TechnicianReminderController;
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -37,7 +40,9 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
  */
 Route::middleware(['auth:sanctum', 'role:technician'])->prefix('technician')->group(function () {
     Route::get('/installations', [TechInstallationController::class, 'index']);
+    Route::get('/reminders', [TechnicianReminderController::class, 'index']);
     Route::post('/installations/{installation}/service-visits', [ServiceVisitController::class, 'store']);
+
 });
 
 /**
@@ -46,4 +51,5 @@ Route::middleware(['auth:sanctum', 'role:technician'])->prefix('technician')->gr
 Route::middleware(['auth:sanctum', 'role:client'])->prefix('client')->group(function () {
     Route::get('/installations', [ClientInstallationController::class, 'index']);
     Route::get('/installations/{installation}', [ClientInstallationController::class, 'show']);
+    Route::get('/reminders', [ClientReminderController::class, 'index']);
 });
