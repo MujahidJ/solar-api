@@ -17,6 +17,8 @@ use App\Http\Controllers\Client\InstallationController as ClientInstallationCont
 use App\Http\Controllers\Client\ReminderController as ClientReminderController;
 use App\Http\Controllers\Technician\ReminderController as TechnicianReminderController;
 
+use App\Http\Controllers\Admin\ReminderController as AdminReminderController;
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -33,6 +35,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->prefix('admin')->group(functi
     Route::post('/reminders/generate-due', [ReminderGenerationController::class, 'generateDue']);
     Route::post('/installations/{installation}/assign-technician', [InstallationAssignmentController::class, 'assign']);
     Route::post('/installations/{installation}/maintenance-plans', [MaintenancePlanController::class, 'store']);
+    Route::get('/reminders', [AdminReminderController::class, 'index']);
 });
 
 /**
