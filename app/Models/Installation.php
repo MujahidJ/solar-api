@@ -43,4 +43,9 @@ class Installation extends Model
     {
         return $this->hasMany(ServiceVisit::class);
     }
+
+    public function conditionEvents()
+    {
+        return $this->hasMany(ConditionEvent::class);
+    }
 }

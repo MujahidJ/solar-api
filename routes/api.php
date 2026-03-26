@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Technician\ConditionEventController;
 
 use App\Http\Controllers\Admin\InstallationController as AdminInstallationController;
 use App\Http\Controllers\Admin\InstallationAssignmentController;
@@ -45,6 +46,7 @@ Route::middleware(['auth:sanctum', 'role:technician'])->prefix('technician')->gr
     Route::get('/installations', [TechInstallationController::class, 'index']);
     Route::get('/reminders', [TechnicianReminderController::class, 'index']);
     Route::post('/installations/{installation}/service-visits', [ServiceVisitController::class, 'store']);
+    Route::post('/installations/{installation}/condition-events', [ConditionEventController::class, 'store']);
 
 });
 
