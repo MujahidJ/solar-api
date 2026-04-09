@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Enums\ConditionEventType;
+
+
 class ConditionEvent extends Model
 {
     protected $fillable = [
@@ -11,6 +14,10 @@ class ConditionEvent extends Model
         'technician_id',
         'event_type',
         'notes',
+    ];
+
+    protected $casts = [
+    'event_type' => ConditionEventType::class,
     ];
 
 
