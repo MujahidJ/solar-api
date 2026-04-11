@@ -30,7 +30,8 @@ public function assignedInstallations()
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'expo_push_token'
     ];
 
     

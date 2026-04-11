@@ -21,13 +21,13 @@ class ConditionEvent extends Model
     ];
 
 
-    public function installation()
-    {
-        return $this->belongsTo(Installation::class);
-    }
+  public function installation()
+{
+    return $this->belongsTo(\App\Models\Installation::class);
+}
 
-    public function technician()
-    {
-        return $this->belongsTo(User::class, 'technician_id');
-    }
+public function technician()
+{
+    return $this->belongsTo(\App\Models\User::class, 'technician_id');
+}
 }

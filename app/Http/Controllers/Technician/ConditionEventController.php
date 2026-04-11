@@ -6,27 +6,23 @@ use App\Enums\ConditionEventType;
 use App\Http\Controllers\Controller;
 use App\Models\ConditionEvent;
 use App\Models\Installation;
-use App\Services\ConditionReminderService;
+use App\Services\EventActionService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class ConditionEventController extends Controller
 {
     public function __construct(
-        protected ConditionReminderService $conditionReminderService
+        protected EventActionService $eventActionService
     ) {}
 
     public function store(Request $request, Installation $installation)
     {
         $user = $request->user();
 
-        $isAssigned = $user->assignedInstallations()
-            ->where('installations.id', $installation->id)
-            ->exists();
-
-        if (!$isAssigned) {
+        if (! $this->isAssignedTechnician($user, $installation)) {
             return response()->json([
-                'message' => 'Forbidden: not assigned to this installation'
+                'message' => 'Forbidden: not assigned to this installation',
             ], 403);
         }
 
@@ -42,12 +38,20 @@ class ConditionEventController extends Controller
             'notes' => $validated['notes'] ?? null,
         ]);
 
-        $reminder = $this->conditionReminderService->handleEvent($event);
+        $result = $this->eventActionService->handle($event);
 
         return response()->json([
             'message' => 'Condition event recorded successfully',
-            'condition_event' => $event,
-            'generated_reminder' => $reminder,
+            'condition_event' => $event->fresh(),
+            'generated_reminder' => $result['reminder'],
+            'notifications' => $result['notifications'],
         ], 201);
+    }
+
+    protected function isAssignedTechnician($user, Installation $installation): bool
+    {
+        return $user->assignedInstallations()
+            ->where('installations.id', $installation->id)
+            ->exists();
     }
 }

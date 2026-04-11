@@ -20,10 +20,16 @@ use App\Http\Controllers\Technician\ReminderController as TechnicianReminderCont
 
 use App\Http\Controllers\Admin\ReminderController as AdminReminderController;
 
+use App\Http\Controllers\NotificationTokenController;
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/me', fn (Request $request) => $request->user());
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/notification-tokens', [NotificationTokenController::class, 'store']);
+});
 
 /**
  * ADMIN

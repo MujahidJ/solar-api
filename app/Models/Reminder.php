@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
-    protected $fillable = [
-        'installation_id',
-        'maintenance_plan_id',
-        'client_id',
-        'technician_id',
-        'message',
-        'due_date',
-        'status',
-        'trigger_source',
-    ];
+  protected $fillable = [
+    'installation_id',
+    'maintenance_plan_id',
+    'client_id',
+    'technician_id',
+    'message',
+    'due_date',
+    'status',
+    'trigger_source',
+];
 
     public function installation()
     {
